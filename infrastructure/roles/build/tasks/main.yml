@@ -2,5 +2,5 @@
 - name: Generate artefact
   shell:
     chdir: "{{ app_destination }}"
-    cmd: quasar build
+    cmd: npm run build
 ...

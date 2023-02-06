@@ -1,7 +1,7 @@
 ---
 - name: Deploy application
   copy:
-    src: "{{ app_destination }}/dist/spa/"
+    src: "{{ app_destination }}/dist"
     dest: "{{ prod_destination }}"
     directory_mode: true
     remote_src: yes

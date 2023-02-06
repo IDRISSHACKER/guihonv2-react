@@ -5,10 +5,6 @@
     dest: "{{ app_destination }}"
     clone: true
 
-- name: Install globally quasar
-  shell:
-    cmd: npm i -g @quasar/cli
-
 - name: Install dependancies
   shell:
     cmd: npm install
