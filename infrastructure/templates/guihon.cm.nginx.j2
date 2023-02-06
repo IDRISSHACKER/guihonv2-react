@@ -1,0 +1,44 @@
+server{
+
+        root /var/www/guihon.cm;
+
+        index index.html;
+        server_name {{ domain }} www.{{ domain }};
+
+        listen [::]:443 ssl;
+        listen 443 ssl;
+        ssl_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/{{ domain }}/privkey.pem;
+        include /etc/letsencrypt/options-ssl-nginx.conf;
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+        gzip on;
+       location ~* \.(svg|gif|otf|jpg|jpeg|png|css|js|ttf|html|php)$ {
+           add_header Cache-Control public;
+           add_header Pragma public;
+           add_header Vary Accept-Encoding;
+           expires max;
+      }
+
+    location / {
+            try_files $uri $uri/ $uri.html /index.html;
+    }
+
+}
+server{
+    if ($host = www.{{ domain }}) {
+        return 301 https://$host$request_uri;
+    }
+
+
+    if ($host = {{ domain }}) {
+        return 301 https://$host$request_uri;
+    }
+
+    listen 80;
+    listen [::]:80;
+    server_name gest.{{ domain }} www.{{ domain }};
+    return 404;
+
+
+}

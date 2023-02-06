@@ -5,6 +5,7 @@
     - "vars/default.yml"
 
   roles:
+    - tls
     - firewall
     - sys
 ...

@@ -2,3 +2,7 @@ app_repository: "https://github.com/IDRISSHACKER/guihonv2-react.git"
 app_destination: "guihon.cm"
 prod_destination: "/var/www/{{ app_destination }}"
 app_port: 80
+domain: "guihon.cm"
+reverse_proxy_file: "templates/guihon.cm.nginx.j2"
+sites_available_dir: "/etc/nginx/sites-available"
+sites_enabled_dir: "/etc/nginx/sites-enabled"
