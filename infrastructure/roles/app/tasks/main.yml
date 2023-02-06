@@ -9,6 +9,7 @@
     repo: "{{ app_repository }}"
     dest: "{{ app_destination }}"
     clone: true
+    force: true
 
 - name: Install dependancies
   shell:
