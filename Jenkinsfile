@@ -1,6 +1,6 @@
 node{
     stage('Get Repository'){
-        git 'https://github.com/IDRISSHACKER/guihonv2.git'
+        git 'https://github.com/IDRISSHACKER/guihonv2-react.git'
     }
 
       stage('Config ENV'){
