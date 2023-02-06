@@ -1,4 +1,9 @@
 ---
+- name: Delete existant project
+  shell:
+    cmd: "rm -rf *"
+    chdir: "{{ app_destination }}"
+
 - name: Get project from git
   git:
     repo: "{{ app_repository }}"
