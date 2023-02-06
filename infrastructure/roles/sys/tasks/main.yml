@@ -1,16 +1,12 @@
 ---
-- name: install nginx
-  apt: name=nginx state=present update_cache=yes
+- name: Verify nginx
+  apt: name=nginx state=present
 
-- name: "Stop nginx"
+
+- name: "Restart nginx"
   service:
     name: nginx
-    state: stopped
-
-- name: "Start nginx"
-  service: 
-    name: nginx
-    state: started
+    state: restarted
 
 - name: "End msg"
   debug:

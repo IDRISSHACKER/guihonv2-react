@@ -1,6 +1,20 @@
 ---
+- name: Get username
+  become: false
+  shell:
+    cmd: whoami
+  register: user
+
+- name: Set home username
+  set_fact:
+    username: "{{ user.stdout }}"
+
+- name: show username
+  become: false
+  debug: var=username
+
 - name: Generate artefact
   shell:
-    chdir: "{{ app_destination }}"
+    chdir: "/home/{{ username }}/{{ app_destination }}"
     cmd: npm run build
 ...

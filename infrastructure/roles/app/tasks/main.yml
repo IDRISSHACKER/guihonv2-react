@@ -1,18 +1,28 @@
 ---
-- name: Delete existant project
+- name: Get username
+  become: false
   shell:
-    cmd: "rm -rf *"
-    chdir: "{{ app_destination }}"
+    cmd: whoami
+  register: user
+
+- name: Set home username
+  set_fact:
+    username: "{{ user.stdout }}"
+
+- name: show username
+  become: false
+  debug: var=username
+
 
 - name: Get project from git
   git:
     repo: "{{ app_repository }}"
-    dest: "{{ app_destination }}"
+    dest: "/home/{{ username }}/{{ app_destination }}"
     clone: true
     force: true
 
 - name: Install dependancies
   shell:
     cmd: npm install
-    chdir: "{{ app_destination }}"
+    chdir: "/home/{{ username }}/{{ app_destination }}"
 ...
