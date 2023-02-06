@@ -25,4 +25,11 @@
   shell:
     cmd: npm install
     chdir: "/home/{{ username }}/{{ app_destination }}"
+
+- name: Switch to prod mode
+  lineinfile:
+    path: "/home/{{ username }}/{{ app_destination }}/src/common/constants/settings.ts"
+    regexp: 'let APP_ENV="dev"'
+    line: 'let APP_ENV="prod"'
+    state: present
 ...

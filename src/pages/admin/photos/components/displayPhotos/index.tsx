@@ -12,6 +12,7 @@ import "./displayPhotos.scss"
 import {toast} from "react-toastify";
 import client from "../../../../../providers/apollo";
 import {DELETE_IMAGE, GET_IMAGES} from "../../../../../store/image";
+import env from "../../../../../common/constants/settings";
 
 
 const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
@@ -27,8 +28,8 @@ const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
             <ImageListItem className={"image-item"}>
                 <img
                     className={"img"}
-                    src={`http://localhost:8000/storage/${path}`}
-                    srcSet={`http://localhost:8000/storage/${path}`}
+                    src={`${env.API_URL}/storage/${path}`}
+                    srcSet={`${env.API_URL}/storage/${path}`}
                     alt={label}
                     loading="lazy"
                 />

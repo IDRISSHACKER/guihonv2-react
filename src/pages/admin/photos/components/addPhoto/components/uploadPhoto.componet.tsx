@@ -17,6 +17,7 @@ import {useMutation} from "@apollo/client";
 import {toast} from "react-toastify";
 import client from "../../../../../../providers/apollo";
 import {GET_IMAGES, SET_IMAGE} from "../../../../../../store/image";
+import env from "../../../../../../common/constants/settings";
 
 function PreviewImg(
     {image, deleteEvent}:
@@ -70,7 +71,7 @@ export default function UploadPhoto({endEvent}:{endEvent:CallableFunction}) {
             const formData = new FormData()
             formData.append('file', event.target.files[0])
 
-            const req = await axios.post("http://localhost:8000/storage/file", formData)
+            const req = await axios.post(env.API_URL+"/storage/file", formData)
             setImageUrl(req.data.file)
             setUploading(false)
 
