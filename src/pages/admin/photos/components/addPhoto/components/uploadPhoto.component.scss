@@ -1,0 +1,55 @@
+.upload{
+  .file{
+    display: none;
+  }
+
+  .upladContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+
+    .uploadIcon{
+      font-size: 5rem;
+    }
+
+    .uploadTitle{
+      font-weight: 500;
+    }
+  }
+}
+
+.preview{
+  overflow: hidden;
+  position: relative;
+
+  .img{
+    height: 100%;
+    width: 100%;
+  }
+  .delete{
+    opacity: 0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: all linear 300ms;
+
+    .delete-icon{
+      background: #0D0C22;
+    }
+  }
+  &:hover{
+    .delete{
+      opacity: 1;
+    }
+  }
+}
+
+.uploadStatus{
+  z-index: 2;
+  position: absolute;
+  bottom: 20%;
+  right: 6%;
+  transition: all linear 300ms;
+}

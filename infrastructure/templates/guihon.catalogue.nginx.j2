@@ -1,0 +1,15 @@
+upstream guihon_catalogue {
+    server {{ server_name }};
+}
+
+server{
+    listen {{ app_port }};
+    listen [::]:{{ app_port }};
+
+    server_name {{ server_dns }};
+
+    location / {
+
+        proxy_pass http://guihon_catalogue;
+    }
+}

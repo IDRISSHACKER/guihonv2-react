@@ -1,0 +1,68 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateImageInput {
+    """Label of file"""
+    label: String!
+
+    """Path of staged file"""
+    path: String!
+}
+
+input CreateUserInput {
+    """User email address"""
+    email: String!
+
+    """User facebook account"""
+    facebook: String!
+
+    """User login password"""
+    password: String!
+
+    """User phone number"""
+    phone: String!
+
+    """Name of user"""
+    username: String!
+}
+
+type Image {
+    _id: String!
+
+    """Label of file"""
+    label: String!
+
+    """Path of staged file"""
+    path: String!
+}
+
+type Mutation {
+    createImage(createImageInput: CreateImageInput!): Image!
+    createUser(createUserInput: CreateUserInput!): User!
+    deleteImage(_id: String!): Image!
+}
+
+type Query {
+    getImages: [Image!]!
+    getUsers: [User!]!
+}
+
+type User {
+    _id: String!
+
+    """User email"""
+    email: String!
+
+    """User facebook account"""
+    facebook: String!
+
+    """User password"""
+    password: String!
+
+    """User phone"""
+    phone: String!
+
+    """Name of user"""
+    username: String!
+}

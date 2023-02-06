@@ -1,0 +1,6 @@
+---
+- name: Testing app [Test Unit]
+  shell:
+    chdir: "{{ app_destination }}"
+    cmd: npm run test
+...

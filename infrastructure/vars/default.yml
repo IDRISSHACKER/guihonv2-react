@@ -1,0 +1,4 @@
+app_repository: "https://github.com/IDRISSHACKER/guihonv2.git"
+app_destination: "guihon.cm"
+prod_destination: "/var/www/{{ app_destination }}"
+app_port: 80
