@@ -27,14 +27,14 @@ jobs:
       command: |
         ansible-playbook ./infrastructure/test.yml
 
-  Build:
+  Builder:
     steps:
     - run:
       name: Build Artefact
       command: |
         ansible-playbook ./infrastructure/build.yml
 
-  Deploy:
+  Deployer:
     steps:
     - run:
       name: Deploy Artefact
@@ -54,6 +54,6 @@ workflows:
       - Init
       - Setup
       - Test
-      - Build
-      - Deploy
+      - Builder
+      - Deployer
       - Infra
