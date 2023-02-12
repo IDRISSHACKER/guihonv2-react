@@ -3,21 +3,16 @@ version: 2.1
 jobs:
   init:
     docker:
-      - image: node:latest
+      - image: python:latest
     steps:
       - checkout
-      - run: node --version
+      - run: python --version
+      - run: pip --version
+      - run: pip install ansible
+      - run: ansible --version
 
-  deploy:
-    docker:
-      - image: node:latest
-    steps:
-      - run: echo docker
 
 workflows:
   ci-ci-guihon-front:
     jobs:
       - init
-      - deploy:
-          requires:
-            - init
