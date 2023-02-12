@@ -1,12 +1,12 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@3.10.0
+  python: circleci/python@2.10.0
 
 jobs:
   init:
     docker:
-      - image: circleci/node
+      - image: node:latest
     steps:
       - run: echo hello
 
