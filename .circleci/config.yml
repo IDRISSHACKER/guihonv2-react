@@ -1,63 +1,70 @@
-version: 2
+version: 2.1
+
+orbs:
+  python: circleci/python@3.10.0
 
 jobs:
   Init:
-    commands:
-      steps:
-        - run:
-          name: Install Dependencies
-          command: |
-            sudo apt update
-            apt install python
-            pip install ansible
+    steps:
+      - run:
+        name: Install Dependencies
+        command: |
+          sudo apt update
+          apt install python
+          pip install ansible
 
   Setup:
-    commands:
-      steps:
-      - run:
-        name: Config ENV
-        command: |
-          ansible-plabook ./infrastructure/init.yml
+    steps:
+    - run:
+      name: Config ENV
+      command: |
+        ansible-plabook ./infrastructure/init.yml
 
   Test:
-    commands:
-      steps:
-      - run:
-        name: Run Test Unit
-        command: |
-          ansible-plabook ./infrastructure/test.yml
+    steps:
+    - run:
+      name: Run Test Unit
+      command: |
+        ansible-plabook ./infrastructure/test.yml
 
   Build:
-    commands:
-      steps:
-      - run:
-        name: Build Artefact
-        command: |
-          ansible-plabook ./infrastructure/build.yml
+    steps:
+    - run:
+      name: Build Artefact
+      command: |
+        ansible-plabook ./infrastructure/build.yml
 
   Deploy:
-    commands:
-      steps:
-      - run:
-        name: Deploy Artefact
-        command: |
-          ansible-plabook ./infrastructure/deploy.yml
+    steps:
+    - run:
+      name: Deploy Artefact
+      command: |
+        ansible-plabook ./infrastructure/deploy.yml
 
   Infra:
-    commands:
-      steps:
-      - run:
-        name: Settings network
-        command: |
-          ansible-plabook ./infrastructure/network.yml
+    steps:
+    - run:
+      name: Settings network
+      command: |
+        ansible-plabook ./infrastructure/network.yml
 
 workflows:
   version: 2
   ci-ci-guihon-front:
     jobs:
       - Init
-      - Setup
-      - Test
-      - Build
-      - Deploy
-      - Infra
+      - Setup:
+          requires:
+            - Init
+      - Test:
+          requires:
+            - Setup
+      - Build:
+          requires:
+            - Test
+      - Deploy:
+          requires:
+            - Build
+      - Infra:
+          requires:
+            - Deploy
