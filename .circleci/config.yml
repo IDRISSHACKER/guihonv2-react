@@ -15,56 +15,46 @@ jobs:
 
   Setup:
     steps:
-      - run:
-        name: Config ENV
-        command: |
-          ansible-plabook ./infrastructure/init.yml
+    - run:
+      name: Config ENV
+      command: |
+        ansible-plabook ./infrastructure/init.yml
 
   Test:
     steps:
-      - run:
-        name: Run Test Unit
-        command: |
-          ansible-plabook ./infrastructure/test.yml
+    - run:
+      name: Run Test Unit
+      command: |
+        ansible-plabook ./infrastructure/test.yml
 
   Build:
     steps:
-      - run:
-        name: Build Artefact
-        command: |
-          ansible-plabook ./infrastructure/build.yml
+    - run:
+      name: Build Artefact
+      command: |
+        ansible-plabook ./infrastructure/build.yml
 
   Deploy:
     steps:
-      - run:
-        name: Deploy Artefact
-        command: |
-          ansible-plabook ./infrastructure/deploy.yml
+    - run:
+      name: Deploy Artefact
+      command: |
+        ansible-plabook ./infrastructure/deploy.yml
 
   Infra:
     steps:
-      - run:
-        name: Settings network
-        command: |
-          ansible-plabook ./infrastructure/network.yml
+    - run:
+      name: Settings network
+      command: |
+        ansible-plabook ./infrastructure/network.yml
 
 workflows:
   version: 2
   ci-ci-guihon-front:
     jobs:
       - Init
-      - Setup:
-          requires:
-            - Init
-      - Test:
-          requires:
-            - Setup
-      - Build:
-          requires:
-            - Test
-      - Deploy:
-          requires:
-            - Build
-      - Infra:
-          requires:
-            - Deploy
+      - Setup
+      - Test
+      - Build
+      - Deploy
+      - Infra
