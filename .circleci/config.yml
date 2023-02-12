@@ -7,6 +7,7 @@ jobs:
     steps:
       - checkout
       - run: pip install ansible
+      - run: apt update
       - run: apt install sshpass
       - run: ansible-playbook ./infrastructure/init.yml
       - run: ansible-playbook ./infrastructure/test.yml
