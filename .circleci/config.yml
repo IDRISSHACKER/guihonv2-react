@@ -7,6 +7,10 @@ jobs:
     steps:
       - run: echo hello
 
+  deploy:
+    steps:
+      - run: echo docker
+
 workflows:
   ci-ci-guihon-front:
     jobs:
