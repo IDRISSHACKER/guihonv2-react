@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: node:latest
     steps:
-      - run: echo hello
+      - run: ls
 
   deploy:
     steps:
@@ -15,3 +15,4 @@ workflows:
   ci-ci-guihon-front:
     jobs:
       - init
+      - deploy
