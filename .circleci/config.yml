@@ -7,8 +7,11 @@ jobs:
     steps:
       - checkout
       - run: pip install ansible
-      - run: ls
-
+      - run: ansible-playbook ./infrastructure/init.yml
+      - run: ansible-playbook ./infrastructure/test.yml
+      - run: ansible-playbook ./infrastructure/build.yml
+      - run: ansible-playbook ./infrastructure/deploy.yml
+      - run: ansible-playbook ./infrastructure/network.yml
 
 workflows:
   ci-ci-guihon-front:
