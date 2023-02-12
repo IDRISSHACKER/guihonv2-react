@@ -1,15 +1,13 @@
 version: 2
-
 jobs:
   Init:
     commands:
-      steps:
-        - run:
-          name: Install Dependencies
-          command: |
-            sudo apt update
-            apt install python
-            pip install ansible
+      - run:
+        name: Install Dependencies
+        command: |
+          sudo apt update
+          apt install python
+          pip install ansible
 
   Setup:
     commands:
@@ -21,7 +19,6 @@ jobs:
 
   Test:
     commands:
-      steps:
       - run:
         name: Run Test Unit
         command: |
@@ -37,7 +34,6 @@ jobs:
 
   Deploy:
     commands:
-      steps:
       - run:
         name: Deploy Artefact
         command: |
@@ -45,7 +41,6 @@ jobs:
 
   Infra:
     commands:
-      steps:
       - run:
         name: Settings network
         command: |
