@@ -41,7 +41,7 @@ workflows:
   version: 2
   pipeline:
     jobs:
-      - build:
+      - pipeline:
           filters:
             branches:
               only: master
