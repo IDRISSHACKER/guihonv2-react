@@ -5,6 +5,8 @@ orbs:
 
 jobs:
   init:
+    docker:
+      - image: circleci/node
     steps:
       - run: echo hello
 
