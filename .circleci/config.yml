@@ -5,15 +5,8 @@ orbs:
 
 jobs:
   init:
-    name: "etc"
-    description: "Call API V2 to deploy content to Docs Platform"
-    working_directory: ~/repo
     steps:
-      - checkout
-      - run:
-        name: "Install Dependencies"
-        command: |
-          echo "hello"
+      - run: echo hello
 
 workflows:
   ci-ci-guihon-front:
