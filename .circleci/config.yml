@@ -5,6 +5,7 @@ orbs:
 
 jobs:
   Init:
+    description: Call API V2 to deploy content to Docs Platform
     steps:
       - run:
         name: Install Dependencies
@@ -14,6 +15,7 @@ jobs:
           pip install ansible
 
   Setup:
+    description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
       name: Config ENV
@@ -21,6 +23,7 @@ jobs:
         ansible-playbook ./infrastructure/init.yml
 
   Test:
+    description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
       name: Run Test Unit
@@ -28,6 +31,7 @@ jobs:
         ansible-playbook ./infrastructure/test.yml
 
   Builder:
+    description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
       name: Building Artefact
@@ -35,6 +39,7 @@ jobs:
         ansible-playbook ./infrastructure/build.yml
 
   Deployer:
+    description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
       name: Deploy Artefact
@@ -42,6 +47,7 @@ jobs:
         ansible-playbook ./infrastructure/deploy.yml
 
   Infra:
+    description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
       name: Settings network
