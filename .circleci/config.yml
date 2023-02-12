@@ -6,73 +6,16 @@ orbs:
 jobs:
   init:
     name: "etc"
-    description: Call API V2 to deploy content to Docs Platform
+    description: "Call API V2 to deploy content to Docs Platform"
     working_directory: ~/repo
     steps:
       - checkout
       - run:
-        name: Install Dependencies
+        name: "Install Dependencies"
         command: |
-          sudo apt update
-          apt install python
-          pip install ansible
-
-  setup:
-    name: "etc"
-    description: Call API V2 to deploy content to Docs Platform
-    working_directory: ~/repo
-    steps:
-    - run:
-      name: Config ENV
-      command: |
-        ansible-playbook ./infrastructure/init.yml
-
-  test:
-    name: "etc"
-    description: Call API V2 to deploy content to Docs Platform
-    working_directory: ~/repo
-    steps:
-    - run:
-      name: Run Test Unit
-      command: |
-        ansible-playbook ./infrastructure/test.yml
-
-  builder:
-    name: "etc"
-    description: Call API V2 to deploy content to Docs Platform
-    working_directory: ~/repo
-    steps:
-    - run:
-      name: Building Artefact
-      command: |
-        ansible-playbook ./infrastructure/build.yml
-
-  deployer:
-    name: "etc"
-    description: Call API V2 to deploy content to Docs Platform
-    working_directory: ~/repo
-    steps:
-    - run:
-      name: Deploy Artefact
-      command: |
-        ansible-playbook ./infrastructure/deploy.yml
-
-  infra:
-    name: "etc"
-    description: Call API V2 to deploy content to Docs Platform
-    working_directory: ~/repo
-    steps:
-    - run:
-      name: Settings network
-      command: |
-        ansible-playbook ./infrastructure/network.yml
+          echo "hello"
 
 workflows:
   ci-ci-guihon-front:
     jobs:
       - init
-      - setup
-      - test
-      - builder
-      - deployer
-      - infra
