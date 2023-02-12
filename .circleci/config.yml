@@ -53,9 +53,9 @@ jobs:
 
 workflows:
   version: 2
-  pipeline:
+  ci-ci-guihon-front:
     jobs:
-      - Env
+      - Init
       - Setup
       - Test
       - Build
