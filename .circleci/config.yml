@@ -9,6 +9,8 @@ jobs:
       - run: node --version
 
   deploy:
+    docker:
+      - image: node:latest
     steps:
       - run: echo docker
 
