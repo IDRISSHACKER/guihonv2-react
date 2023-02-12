@@ -1,45 +1,45 @@
 version: 2
 
 jobs:
-pipeline:
-  docker:
-    - image: circleci/python
-  commands:
-    steps:
-      - run:
-        name: Install Dependencies
-        command: |
-          sudo apt update
-          pip install ansible
+  pipeline:
+    docker:
+      - image: circleci/python
+    commands:
+      steps:
+        - run:
+          name: Install Dependencies
+          command: |
+            sudo apt update
+            pip install ansible
 
-      - run:
-        name: Config ENV
-        command: |
-          ansible-plabook ./infrastructure/init.yml
+        - run:
+          name: Config ENV
+          command: |
+            ansible-plabook ./infrastructure/init.yml
 
-      - run:
-        name: Run Test Unit
-        command: |
-          ansible-plabook ./infrastructure/test.yml
+        - run:
+          name: Run Test Unit
+          command: |
+            ansible-plabook ./infrastructure/test.yml
 
-      - run:
-        name: Build Artefact
-        command: |
-          ansible-plabook ./infrastructure/build.yml
+        - run:
+          name: Build Artefact
+          command: |
+            ansible-plabook ./infrastructure/build.yml
 
-      - run:
-        name: Deploy Artefact
-        command: |
-          ansible-plabook ./infrastructure/deploy.yml
+        - run:
+          name: Deploy Artefact
+          command: |
+            ansible-plabook ./infrastructure/deploy.yml
 
-      - run:
-        name: Settings network
-        command: |
-          ansible-plabook ./infrastructure/network.yml
+        - run:
+          name: Settings network
+          command: |
+            ansible-plabook ./infrastructure/network.yml
 
 workflows:
   version: 2
-  build:
+  pipeline:
     jobs:
       - build:
           filters:
