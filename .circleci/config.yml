@@ -4,7 +4,8 @@ orbs:
   python: circleci/python@3.10.0
 
 jobs:
-  Init:
+  init:
+    name: "etc"
     description: Call API V2 to deploy content to Docs Platform
     steps:
       - run:
@@ -14,7 +15,8 @@ jobs:
           apt install python
           pip install ansible
 
-  Setup:
+  setup:
+    name: "etc"
     description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
@@ -22,7 +24,8 @@ jobs:
       command: |
         ansible-playbook ./infrastructure/init.yml
 
-  Test:
+  test:
+    name: "etc"
     description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
@@ -30,7 +33,8 @@ jobs:
       command: |
         ansible-playbook ./infrastructure/test.yml
 
-  Builder:
+  builder:
+    name: "etc"
     description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
@@ -38,7 +42,8 @@ jobs:
       command: |
         ansible-playbook ./infrastructure/build.yml
 
-  Deployer:
+  deployer:
+    name: "etc"
     description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
@@ -46,7 +51,8 @@ jobs:
       command: |
         ansible-playbook ./infrastructure/deploy.yml
 
-  Infra:
+  infra:
+    name: "etc"
     description: Call API V2 to deploy content to Docs Platform
     steps:
     - run:
@@ -57,9 +63,9 @@ jobs:
 workflows:
   ci-ci-guihon-front:
     jobs:
-      - Init
-      - Setup
-      - Test
-      - Builder
-      - Deployer
-      - Infra
+      - init
+      - setup
+      - test
+      - builder
+      - deployer
+      - infra
