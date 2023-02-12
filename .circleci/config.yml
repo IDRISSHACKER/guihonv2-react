@@ -5,7 +5,8 @@ jobs:
     docker:
       - image: node:latest
     steps:
-      - run: ls
+      - checkout
+      - run: node --version
 
   deploy:
     steps:
@@ -15,4 +16,6 @@ workflows:
   ci-ci-guihon-front:
     jobs:
       - init
-      - deploy
+      - deploy:
+          requires:
+            - init
