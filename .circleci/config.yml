@@ -30,7 +30,7 @@ jobs:
   Builder:
     steps:
     - run:
-      name: Build Artefact
+      name: Building Artefact
       command: |
         ansible-playbook ./infrastructure/build.yml
 
