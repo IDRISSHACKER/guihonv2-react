@@ -11,6 +11,7 @@ jobs:
       - run: ansible-playbook ./infrastructure/test.yml
       - run: ansible-playbook ./infrastructure/build.yml
       - run: ansible-playbook ./infrastructure/deploy.yml
+      - run: apt install sshpass
       - run: ansible-playbook ./infrastructure/network.yml
 
 workflows:
