@@ -15,16 +15,16 @@ jobs:
       - run: ansible-playbook ./infrastructure/deploy.yml
       - run: ansible-playbook ./infrastructure/network.yml
 
-    test:
-      docker:
-        - image: python:latest
-      steps:
-        - checkout
-        - run: pip install ansible
-        - run: apt update
-        - run: apt install sshpass
-        - run: ansible-playbook ./infrastructure/init.yml
-        - run: ansible-playbook ./infrastructure/test.yml
+  test:
+    docker:
+      - image: python:latest
+    steps:
+      - checkout
+      - run: pip install ansible
+      - run: apt update
+      - run: apt install sshpass
+      - run: ansible-playbook ./infrastructure/init.yml
+      - run: ansible-playbook ./infrastructure/test.yml
 
 workflows:
   ci-ci-guihon-front:
