@@ -85,6 +85,7 @@ const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
     )
 }
 
+
 export default ()=> {
 
     let { loading, error, data } = useQuery(GET_IMAGES, {
