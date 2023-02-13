@@ -1,0 +1,18 @@
+.navbar{
+  background: $secondary !important;
+  box-shadow: none;
+  border-bottom: solid 1px rgba(0, 0, 0, .2);
+
+  .navbar-toolbar{
+    background: $secondary;
+    .navbar-item{
+      transition: all linear 300ms;
+      text-transform: none;
+
+      &:hover{
+        color: inherit;
+        text-decoration: underline;
+      }
+    }
+  }
+}

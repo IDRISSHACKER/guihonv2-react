@@ -1,0 +1,68 @@
+.bg-dark{
+  background: #1D2424
+}
+
+.hero{
+  background: #1D2424;
+  height: 400px;
+  width: 100%;
+  border-radius: 10px;
+  position: relative;
+
+  @media only screen and (max-width: 700px){
+    border-radius: 0;
+  }
+
+  .hero-cover{
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    background: #4cd964;
+    border-radius: 10px;
+    @media only screen and (max-width: 700px){
+      border-radius: 0;
+    }
+    background: linear-gradient(to top, rgba(0, 0, 0, .9), rgba(0, 0, 0, .6), rgba(0, 0, 0, .1));
+
+    .hero-action{
+      position: absolute;
+      bottom: 70px;
+    }
+  }
+}
+
+.user{
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+
+  .avatar{
+    width: 80px;
+    height: auto;
+  }
+
+  .data{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+
+    .name{
+      font-size: 2.25rem;
+      font-weight: 500;
+      color: rgb(226 232 240/1);
+    }
+
+    .description{
+      color: rgb(148 163 184/1);
+      font-weight: 500;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+  }
+}

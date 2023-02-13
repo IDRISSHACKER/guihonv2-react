@@ -1,5 +1,5 @@
 import {
-    Box,
+    Box, Button,
     Card,
     CardContent,
     CircularProgress,
@@ -119,6 +119,7 @@ export default function UploadPhoto({endEvent}:{endEvent:CallableFunction}) {
                             <LoadingButton
                                 disableElevation
                                 variant={"contained"}
+                                className={"btn"}
                                 component={Box}>Choisir une photo</LoadingButton>
                         </Box>
                     </CardContent>
@@ -143,6 +144,16 @@ export default function UploadPhoto({endEvent}:{endEvent:CallableFunction}) {
         </Box>
         </DialogContent>
             <DialogActions>
+                <Button
+                    onClick={(event)=>{
+                        event.stopPropagation()
+                        return endEvent()
+                    }
+                    }
+                    color={"error"}
+                    disableElevation
+                    className={"btn"}
+                    component={Box}>Pas maintenant</Button>
                 {selected &&
                     <LoadingButton
                         disabled={uploading || !label.length}

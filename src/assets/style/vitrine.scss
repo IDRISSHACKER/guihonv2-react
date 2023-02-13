@@ -1,0 +1,114 @@
+.presentation {
+  padding-bottom: 60px;
+  padding-top: 90px;
+
+  @media only screen and (max-width: 500px){
+    padding-top: 40px;
+  }
+}
+.presentation .presentation-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0;
+  gap: 40px;
+}
+.presentation .presentation-content .desc {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-direction: column;
+  max-width: 40%;
+  gap: 40px;
+}
+.presentation .presentation-content .desc .desc-content {
+  font-weight: normal;
+}
+.presentation .presentation-content .desc .media {
+  width: 100% !important;
+}
+
+@media only screen and (max-width: 920px) {
+  .presentation .presentation-content {
+    padding-top: 60px;
+    flex-direction: column;
+  }
+  .presentation .presentation-content .desc {
+    max-width: 100%;
+  }
+  .presentation .presentation-content .desc .media {
+    margin-bottom: 0;
+  }
+}
+
+.title1 {
+  word-wrap: break-word;
+  font-weight: 800;
+  font-size: clamp(30px, 5vw, 64px);
+  line-height: 100%;
+  text-transform: none;
+  text-rendering: geometricPrecision;
+}
+
+.title2 {
+  word-wrap: break-word;
+  font-weight: 500;
+  font-size: clamp(24px, 5vw, 44px);
+  text-rendering: geometricPrecision;
+  line-height: 120%;
+}
+
+.title2-custom {
+  word-wrap: break-word;
+  font-weight: 800;
+  font-size: clamp(24px, 5vw, 44px);
+  text-transform: uppercase;
+  text-rendering: geometricPrecision;
+  line-height: 120%;
+}
+
+.title4 {
+  word-wrap: break-word;
+  font-weight: 600;
+  font-size: clamp(24px, 5vw, 32px);
+  line-height: 120%;
+  text-rendering: geometricPrecision;
+}
+
+.text {
+  color: #23272a;
+  font-size: clamp(16px, 2vw, 22px);
+  line-height: 1.6;
+}
+
+.text-mi-white{
+  color: rgba(255, 255, 255, 1);
+  opacity: .7;
+  text-decoration: none !important;
+
+  *{
+    text-decoration: none !important;
+  }
+}
+
+.showMobile {
+  display: none;
+}
+
+@media only screen and (max-width: 920px) {
+  .hideMobile {
+    display: none;
+  }
+
+  .showMobile {
+    display: block;
+  }
+}
+
+.round{
+  border-radius: 10px;
+}
+
+.media{
+  max-width: 100% !important;
+}
