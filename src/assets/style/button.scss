@@ -1,0 +1,31 @@
+.btn{
+  text-decoration: none !important;
+  text-transform: none !important;
+  &:hover{
+    text-decoration: none !important;
+  }
+
+  @media only screen and (max-width: 700px){
+    font-size: 1rem !important;
+  }
+}
+
+.btn-link{
+  color: #ffffff !important;
+  text-decoration: none !important;
+  @media only screen and (max-width: 700px){
+    font-size: 1rem
+    !important;
+  }
+  &:hover{
+    color: #ffffff;
+    text-decoration: none !important;
+  }
+}
+
+.btns{
+  @media only screen and (max-width: 700px){
+    display: flex;
+    flex-direction: column;
+  }
+}

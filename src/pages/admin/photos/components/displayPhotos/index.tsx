@@ -1,8 +1,8 @@
-import {gql, useMutation, useQuery} from "@apollo/client";
+import { useMutation, useQuery} from "@apollo/client";
 import {
     Alert,
-    Box,
-    CircularProgress, IconButton,
+    Box, Card, CardMedia,
+    CircularProgress, Grid, IconButton,
     ImageList, ImageListItem, ImageListItemBar,
 } from "@mui/material";
 import React, {useState} from "react";
@@ -12,10 +12,11 @@ import "./displayPhotos.scss"
 import {toast} from "react-toastify";
 import client from "../../../../../providers/apollo";
 import {DELETE_IMAGE, GET_IMAGES} from "../../../../../store/image";
-import env from "../../../../../common/constants/settings";
+import Empty from "../../../../../components/Empty";
+import resolveImg from "../../../../../mixins/path";
 
 
-const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
+const ImageItem = ({id, label, path, show=false}:{id: string, label:string, path:string, show: boolean})=>{
     const [deleteImage] = useMutation(DELETE_IMAGE);
     const [deleting, setDeleting] = useState(false)
 
@@ -44,8 +45,8 @@ const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
             <ImageListItem className={"image-item"}>
                 <img
                     className={"img"}
-                    src={`${env.API_URL}/storage/${path}`}
-                    srcSet={`${env.API_URL}/storage/${path}`}
+                    src={resolveImg(path)}
+                    srcSet={resolveImg(path)}
                     alt={label}
                     loading="lazy"
                 />
@@ -68,7 +69,7 @@ const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
                     }
                     actionPosition="left"
                 />
-                <Box className={"delete"}>
+                {show && <Box className={"delete"}>
                     <LoadingButton disableElevation
                                    loading={deleting}
                                    disabled={deleting}
@@ -79,18 +80,26 @@ const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
                                    color={"error"}>
                         <DeleteSweep />
                     </LoadingButton>
-                </Box>
+                </Box>}
             </ImageListItem>
         </React.Fragment>
     )
 }
 
+const ImageItemSm = ({label, path}:{label:string, path:string})=>{
+    return(<Card>
+        <CardMedia
+            component="img"
+            alt={label}
+            height="280"
+            image={resolveImg(path)}
+        />
+    </Card>)
+}
 
-export default ()=> {
+export default ({show=false}: {show: boolean})=> {
 
-    let { loading, error, data } = useQuery(GET_IMAGES, {
-        fetchPolicy: "no-cache",
-    });
+    let { loading, error, data } = useQuery(GET_IMAGES);
 
     if (loading) return(
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', m: 5 }}>
@@ -101,14 +110,35 @@ export default ()=> {
 
     if (error) return <Alert severity="warning">Impossible de récuperer la collection: {error.message}</Alert>
 
+    if (data.getImages.length === 0) return <Empty message={"Aucun articles disponible"} />
+
     return (
-        <React.Fragment>
-            <ImageList variant="masonry" cols={3} gap={8}>
+        <Box>
+            <Box className={"hide-sm"}>
+                <ImageList variant="masonry" cols={3} gap={8}>
                     {data && data.getImages && data.getImages.map((
                         {_id, label, path}:{ _id: string, label: string, path: string }) => (
-                        <ImageItem id={_id} key={_id} label={label} path={path} />
+                            <ImageItem show={show} key={_id} id={_id} label={label} path={path} />
                     ))}
                 </ImageList>
-        </React.Fragment>
+            </Box>
+            <Box className={"hide-pc container"}>
+                <Grid container spacing={2} sx={{mt: 5}}>
+                    {data && data.getImages && data.getImages.map((
+                        {_id, label, path}:{ _id: string, label: string, path: string }) => (
+                        <Grid item key={_id} xs={12} sm={4} md={3}>
+                            <Card>
+                                <CardMedia
+                                    component="img"
+                                    alt={label}
+                                    height="380"
+                                    image={resolveImg(path)}
+                                />
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+        </Box>
     )
 }

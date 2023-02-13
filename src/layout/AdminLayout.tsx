@@ -16,9 +16,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {NavLink, Outlet} from "react-router-dom";
+import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import DashboardIcon from "./../assets/dashboard.svg";
-import {AddToPhotosTwoTone} from "@mui/icons-material";
+import {AddToPhotosTwoTone, DashboardCustomize, HomeOutlined, Storefront, Upload} from "@mui/icons-material";
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import UploadPhoto from "../pages/admin/photos/components/addPhoto/components/uploadPhoto.componet";
+import Button from "@mui/material/Button";
+import logo from "/src/assets/icon/logo.png"
 
 const drawerWidth = 240;
 
@@ -92,8 +100,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function() {
+    const [value, setValue] = React.useState(0);
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const navigate = useNavigate()
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -106,9 +116,10 @@ export default function() {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
-                <Toolbar>
+            <AppBar position="fixed" open={open} className={"navbar"}>
+                <Toolbar className={"navbar-toolbar"}>
                     <IconButton
+                        className={"hide-sm"}
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
@@ -120,12 +131,35 @@ export default function() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Catalogue
-                    </Typography>
+                    <Button
+                        size="large"
+                        color="inherit"
+                        aria-label="icon"
+                        sx={{ mr: 0 }}
+                        component={NavLink}
+                        className={"btn-link link"}
+                        to={"home"}
+                    >
+                        <img style={{width: '50px', height: 'auto'}} src={logo} alt="guihon group sarl"/>
+                        <span className={"logo-text hide-sm"}>Catalogue</span>
+                    </Button>
+                    <Box component="div" sx={{ flexGrow: 1 }}></Box>
+                    <Button
+                        disableElevation
+                        variant={"contained"}
+                        className={"navbar-item btn"}
+                        color="error"
+                        onClick={()=>{
+                            localStorage.clear()
+                            navigate("/", {replace: true})
+                        }}
+
+                    >
+                        Deconexion
+                    </Button>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open}>
+            <Drawer variant="permanent" open={open} className={"hide-sm"}>
                 <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -182,6 +216,31 @@ export default function() {
                             <ListItemText primary={"Uploader"} sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </ListItem>
+                    <ListItem
+                        disablePadding
+                        sx={{ display: 'block' }}
+                        component={NavLink}
+                        to={"home"}
+                    >
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: open ? 'initial' : 'center',
+                                px: 2.5,
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : 'auto',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Storefront />
+                            </ListItemIcon>
+                            <ListItemText primary={"Home"} sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
@@ -190,6 +249,36 @@ export default function() {
                     <Outlet />
                 </Box>
             </Box>
+            <BottomNavigation
+                className={"nav-bottom hide-pc"}
+                showLabels
+                value={value}
+                onChange={(event, newValue) => {
+                    setValue(newValue);
+                }}
+            >
+                <BottomNavigationAction
+                    component={NavLink}
+                    to={"dashboard"}
+                    className={"item"}
+                    label="Dashboard"
+                    icon={<DashboardCustomize />}
+                />
+                <BottomNavigationAction
+                    component={NavLink}
+                    to={"photos"}
+                    className={"item"}
+                    label="Upload"
+                    icon={<AddToPhotosTwoTone />}
+                />
+                <BottomNavigationAction
+                    component={NavLink}
+                    to={"home"}
+                    className={"item"}
+                    label="Home"
+                    icon={<Storefront />}
+                />
+            </BottomNavigation>
         </Box>
     );
 }

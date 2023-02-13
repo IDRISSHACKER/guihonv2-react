@@ -32,17 +32,18 @@ export default ()=> {
 
     return (
         <div>
-            <Button variant="contained" disableElevation onClick={handleClickOpen}>
+            <Button className={"btn"} variant="contained" disableElevation onClick={handleClickOpen} sx={{mt:5}}>
                 Nouvelle publication
             </Button>
             <Dialog
+                fullScreen
                 open={open}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>{"Ajouter une photo au catalogue"}</DialogTitle>
+                <DialogTitle className={"dialog-title"}>{"Ajouter une photo au catalogue"}</DialogTitle>
                 <UploadPhoto endEvent={()=>setOpen(false)} />
             </Dialog>
         </div>

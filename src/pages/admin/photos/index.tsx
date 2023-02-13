@@ -11,7 +11,7 @@ export default ()=>{
                 <Box className={"galery-container-header"}>
                     <AddPhotoComponent />
                 </Box>
-                <DisplayPhotos />
+                <DisplayPhotos show={true}/>
             </Box>
         </React.Fragment>
     )

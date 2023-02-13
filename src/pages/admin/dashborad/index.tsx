@@ -1,4 +1,12 @@
+import React from "react";
+import Hero from "./components/hero/hero";
+import Loading from "../../../components/Loading";
+
 export default ()=>{
 
-    return <h1>Dashboard</h1>
+    return(
+        <React.Suspense fallback={<Loading />}>
+            <Hero />
+        </React.Suspense>
+    )
 }
