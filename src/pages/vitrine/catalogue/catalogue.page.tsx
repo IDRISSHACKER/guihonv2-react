@@ -12,7 +12,7 @@ export default ()=>{
     return(
         <React.Suspense fallback={<Loading />}>
             <Hero />
-            <DisplayPhotos />
+            <DisplayPhotos show={false} />
         </React.Suspense>
     )
 }
