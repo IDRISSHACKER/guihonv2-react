@@ -5,7 +5,7 @@ import {
     CircularProgress, IconButton,
     ImageList, ImageListItem, ImageListItemBar,
 } from "@mui/material";
-import React from "react";
+import React, {useState} from "react";
 import {DeleteSweep, StarBorder} from "@mui/icons-material";
 import {LoadingButton} from "@mui/lab";
 import "./displayPhotos.scss"
@@ -17,11 +17,27 @@ import env from "../../../../../common/constants/settings";
 
 const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
     const [deleteImage] = useMutation(DELETE_IMAGE);
+    const [deleting, setDeleting] = useState(false)
 
     const handlerDelete = async ()=>{
-        await deleteImage({variables: {id: id}})
+        const deleteAction = new Promise((resolve, reject)=>{
+            try {
+                resolve(deleteImage({variables: {id: id}}))
+            }catch (err:any){
+                reject("Error")
+            }
+        })
+
+        setDeleting(true)
+        await toast.promise(deleteAction, {
+            pending: "Supression en cours...",
+            error: "Impossible de suprimer",
+            success: "Suprimer avec success",
+        })
+        setDeleting(false)
+
         await client.refetchQueries({include:[GET_IMAGES]})
-        toast("L'image a été suprimer")
+
     }
     return(
         <React.Fragment>
@@ -54,6 +70,8 @@ const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
                 />
                 <Box className={"delete"}>
                     <LoadingButton disableElevation
+                                   loading={deleting}
+                                   disabled={deleting}
                                    onClick={handlerDelete}
                                    className={"delete-icon"}
                                    aria-label={"delete"}
@@ -66,6 +84,7 @@ const ImageItem = ({id, label, path}:{id: string, label:string, path:string})=>{
         </React.Fragment>
     )
 }
+
 
 export default ()=> {
 

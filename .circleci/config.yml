@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  init:
+  prod:
     docker:
       - image: python:latest
     steps:
@@ -15,10 +15,22 @@ jobs:
       - run: ansible-playbook ./infrastructure/deploy.yml
       - run: ansible-playbook ./infrastructure/network.yml
 
+  test:
+    docker:
+      - image: python:latest
+    steps:
+      - checkout
+      - run: pip install ansible
+      - run: apt update
+      - run: apt install sshpass
+      - run: ansible-playbook ./infrastructure/init.yml
+      - run: ansible-playbook ./infrastructure/test.yml
+
 workflows:
   ci-ci-guihon-front:
     jobs:
-      - init:
+      - prod:
           filters:
             branches:
               only: master
+      - test
