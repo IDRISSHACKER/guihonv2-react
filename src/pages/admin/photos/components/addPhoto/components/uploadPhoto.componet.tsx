@@ -71,8 +71,16 @@ export default function UploadPhoto({endEvent}:{endEvent:CallableFunction}) {
             const formData = new FormData()
             formData.append('file', event.target.files[0])
 
-            const req = await axios.post(env.API_URL+"/storage/file", formData)
-            setImageUrl(req.data.file)
+            try {
+                const req = await axios.post("https://nfs.guihon.cm/drive", formData)
+
+                console.log(req.data)
+
+                setImageUrl(req.data.file)
+            }catch (e) {
+                toast.error("Erreur lors de la mise en ligne de l'image, le fichier doit faire moin de 4Mo")
+                setUploading(false)
+            }
             setUploading(false)
 
         }else {

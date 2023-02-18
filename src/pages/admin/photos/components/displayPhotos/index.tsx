@@ -1,12 +1,12 @@
 import { useMutation, useQuery} from "@apollo/client";
 import {
     Alert,
-    Box, Card, CardMedia,
+    Box, Card, CardContent, CardMedia,
     CircularProgress, Grid, IconButton,
     ImageList, ImageListItem, ImageListItemBar,
 } from "@mui/material";
 import React, {useState} from "react";
-import {DeleteSweep, StarBorder} from "@mui/icons-material";
+import {DeleteOutlined, DeleteSweep, StarBorder} from "@mui/icons-material";
 import {LoadingButton} from "@mui/lab";
 import "./displayPhotos.scss"
 import {toast} from "react-toastify";
@@ -86,15 +86,84 @@ const ImageItem = ({id, label, path, show=false}:{id: string, label:string, path
     )
 }
 
-const ImageItemSm = ({label, path}:{label:string, path:string})=>{
-    return(<Card>
-        <CardMedia
-            component="img"
-            alt={label}
-            height="280"
-            image={resolveImg(path)}
-        />
-    </Card>)
+function AdminImgItem({catalogue}:{catalogue:any}){
+    const [deleteImage] = useMutation(DELETE_IMAGE);
+    const [deleting, setDeleting] = useState(false)
+    const handlerDelete = async ()=>{
+        const deleteAction = new Promise((resolve, reject)=>{
+            try {
+                resolve(deleteImage({variables: {id: catalogue.id}}))
+            }catch (err:any){
+                reject("Error")
+            }
+        })
+
+        setDeleting(true)
+        await toast.promise(deleteAction, {
+            pending: "Supression en cours...",
+            error: "Impossible de suprimer",
+            success: "Suprimer avec success",
+        })
+        setDeleting(false)
+
+        await client.refetchQueries({include:[GET_IMAGES]})
+
+    }
+    return(
+         <Grid item xs={12} md={6}>
+            <Card variant={"outlined"} className={"img-item"}>
+                <Grid container spacing={2}>
+                    <Grid item xs={4} md={4}>
+                        <CardMedia
+                            component={"img"}
+                            className={"img"}
+                            style={{
+                                height: "100px",
+                                borderRadius: "4px 0 0 4px"
+                            }}
+                            alt={catalogue.label}
+                            src={resolveImg(catalogue.path)}
+                        />
+                    </Grid>
+                    <Grid item xs={6} md={6}>
+                        <CardContent>
+                            <h3 className={"title"}>{catalogue.label}</h3>
+                            <IconButton onClick={handlerDelete} disabled={deleting} className={"deleteBtn"}>
+                                <DeleteOutlined />
+                            </IconButton>
+                        </CardContent>
+                    </Grid>
+                </Grid>
+            </Card>
+         </Grid>
+    )
+}
+
+export function AdminImgItems(){
+
+    let { loading, error, data } = useQuery(GET_IMAGES);
+
+    if (loading) return(
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', m: 5 }}>
+            <CircularProgress />
+        </Box>
+    )
+
+
+    if (error) return <Alert severity="warning">Impossible de récuperer la collection: {error.message}</Alert>
+
+    if (data.getImages.length === 0) return <Empty message={"Aucun articles disponible"} />
+
+
+    return (
+        <Box>
+            <Grid container spacing={2}>
+                {data && data.getImages && data.getImages.map(({_id, label, path}:{_id:string, label:string, path:string})=>(
+                    <AdminImgItem  catalogue={{label, path, id:_id}} key={_id} />
+                ))}
+            </Grid>
+        </Box>
+    )
 }
 
 export default ({show=false}: {show: boolean})=> {
